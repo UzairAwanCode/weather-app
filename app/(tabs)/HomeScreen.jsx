@@ -36,7 +36,7 @@ const HomeScreen = () => {
             </Text>
           </View>
           <Image
-            source={require("../../assets/images/House1.png")}
+            source={require("../../assets/images/house.png")}
             className="mr-4 mt-6"
           />
         </View>
