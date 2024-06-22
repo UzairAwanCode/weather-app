@@ -41,8 +41,8 @@ const HomeScreen = () => {
           />
         </View>
 
-        <View className="flex-1 rounded-xl  items-center mt-5">
-          <View className="flex-row justify-between" style={{width:"80%"}}>
+        <View className="rounded-2xl  items-center mt-0 border" style={{borderColor:"#3E2D8F", height:"30%"}}>
+          <View className="flex-row justify-between pt-5" style={{width:"80%"}}>
             <Text className="" style={{ color: "#ffffff" }}>
               Today
             </Text>
@@ -57,7 +57,7 @@ const HomeScreen = () => {
               width: "100%",
               height: 1
             }}
-            className="mt-2"
+            className="mt-4"
           />
           <View className="flex-1 flex-row justify-between items-center" style={{width:"80%"}}>
             <View className="flex-col justify-center items-center" style={{height:"100%"}}>

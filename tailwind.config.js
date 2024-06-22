@@ -9,7 +9,15 @@ module.exports = {
     "./App.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        customColor1: '#3E2D8F',
+        customColor2: '#9D52AC',
+      },
+      backgroundColor: {
+        'black-20':'rgb(0,0,0,0.7)',
+      }
+    },
   },
   plugins: [],
 }
