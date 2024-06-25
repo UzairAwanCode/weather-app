@@ -2,20 +2,40 @@ import { Fontisto } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { debounce, set } from "lodash";
 import React, { useCallback, useState } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { fetchLocationForcast } from "../../api/Weather";
+import { fetchLocationForcast, fetchWeatherForcast } from "../../api/Weather";
+import { useNavigation } from "expo-router";
 
 const Location = () => {
   const [location, setLocation] = useState([]);
+  const [weather, setWeather] = useState({});
+  const navigation = useNavigation();
+  const handleLocation = async (loc) => {
+    setLocation([]);
+    const result = await fetchWeatherForcast({
+      cityName: loc.name,
+      days: "7",
+    });
+    if(result){
+      console.log(result);
+      navigation.navigate("HomeScreen", {location: JSON.stringify(result)})
+    }
+  };
+
   const handleSearch = (value) => {
     if (value.length > 2) {
-      fetchLocationForcast({cityName: value}).then((data) => {
+      fetchLocationForcast({ cityName: value }).then((data) => {
         setLocation(data);
       });
-    }
-    else{
-      setLocation([])
+    } else {
+      setLocation([]);
     }
   };
 
@@ -45,7 +65,11 @@ const Location = () => {
         <ScrollView className="flex-1 rounded-2xl bg-black-20">
           {location.map((loc, index) => {
             return (
-              <View className="items-center" key={index}>
+              <TouchableOpacity
+                className="items-center"
+                key={index}
+                onPress={() => handleLocation(loc)}
+              >
                 <View
                   className="flex-row justify-start items-center mt-5 p-5 bg-slate-400 rounded-xl"
                   style={{ width: "90%" }}
@@ -55,7 +79,7 @@ const Location = () => {
                     {loc?.name}, {loc?.country}
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </ScrollView>

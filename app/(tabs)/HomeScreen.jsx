@@ -1,9 +1,28 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import { useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
+  const[weather, setWeather]=useState()
+  const params = useLocalSearchParams();
+
+  useEffect(()=>{
+    if(params.location){
+      try{
+
+        const location = JSON.parse(params.location)
+        setWeather(location)
+      }
+      catch(error){
+        console.error("Error while Receving Data", error);
+      }
+    }
+  },[params.location])
+
+  console.log("Receive Data: ", weather.location);
+  
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
