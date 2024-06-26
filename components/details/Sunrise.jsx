@@ -2,7 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { View, Text, Image } from "react-native";
 
-const Sunrise = () => {
+const Sunrise = ({sunrise, sunset, uvIndex}) => {
   return (
     <View className="mt-8 items-center flex-row" style={{ width: "80%" }}>
       {/* SunRise */}
@@ -19,9 +19,9 @@ const Sunrise = () => {
             <Text className="text-white text-sm ml-1">SUNRISE</Text>
           </View>
           <View className="p-2 bg-transparent">
-            <Text className="text-white text-lg font-bold mb-1">5:28 AM</Text>
+            <Text className="text-white text-lg font-bold mb-1">{sunrise}</Text>
             <Text className="mb-1" style={{ color: "#F7CBFD" }}>
-              Sunset: 7:25PM
+              Sunset: {sunset}
             </Text>
           </View>
         </LinearGradient>
@@ -41,7 +41,7 @@ const Sunrise = () => {
             <Text className="text-white text-sm ml-1">UV INDEX</Text>
           </View>
           <View className="p-2 bg-transparent">
-            <Text className="text-white text-lg font-bold mb-1">4</Text>
+            <Text className="text-white text-lg font-bold mb-1">{uvIndex}</Text>
             <Text className="mb-1 font-bold" style={{ color: "#FFFFFF" }}>
               Moderate
             </Text>

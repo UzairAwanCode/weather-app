@@ -15,7 +15,6 @@ import { useNavigation } from "expo-router";
 
 const Location = () => {
   const [location, setLocation] = useState([]);
-  const [weather, setWeather] = useState({});
   const navigation = useNavigation();
   const handleLocation = async (loc) => {
     setLocation([]);

@@ -3,26 +3,35 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { weatherImages } from "../../constants";
+import { fetchWeatherForcast } from "../../api/Weather";
 
 const HomeScreen = () => {
-  const[weather, setWeather]=useState()
+  const [weather, setWeather] = useState();
   const params = useLocalSearchParams();
 
-  useEffect(()=>{
-    if(params.location){
-      try{
-
-        const location = JSON.parse(params.location)
-        setWeather(location)
-      }
-      catch(error){
+  useEffect(() => {
+    if (params.location) {
+      try {
+        const location = JSON.parse(params.location);
+        setWeather(location);
+      } catch (error) {
         console.error("Error while Receving Data", error);
       }
     }
-  },[params.location])
+    else{
+      getWeatherForcast()
+    }
+  }, [params.location]);
 
-  console.log("Receive Data: ", weather.location);
-  
+  const getWeatherForcast = async()=>{
+    const result = await fetchWeatherForcast({
+      cityName: "islamabad",
+      days: "7"
+    })
+    
+    setWeather(result)
+  }
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
@@ -33,9 +42,9 @@ const HomeScreen = () => {
     >
       <SafeAreaView className="flex-1">
         <View className=" flex-2 items-center">
-          <Image source={require("../../assets/images/homepageheader.png")} />
+          <Image source={weatherImages[weather?.current?.condition?.text]} className="w-36 h-36 mt-10 mb-5"/>
           <Text className="font-medium text-5xl" style={{ color: "#ffffff" }}>
-            19°
+            {weather?.current?.temp_c}°
           </Text>
           <Text className="font-normal text-base" style={{ color: "#ffffff" }}>
             Precipitations
@@ -45,13 +54,13 @@ const HomeScreen = () => {
               className="font-normal text-base mr-2"
               style={{ color: "#ffffff" }}
             >
-              Max: 24°
+              Max: {weather?.current?.precip_mm}°
             </Text>
             <Text
               className="font-normal text-base"
               style={{ color: "#ffffff" }}
             >
-              Min:18°
+              Min: {weather?.current?.precip_in}°
             </Text>
           </View>
           <Image
@@ -60,8 +69,14 @@ const HomeScreen = () => {
           />
         </View>
 
-        <View className="rounded-2xl  items-center mt-0 border" style={{borderColor:"#3E2D8F", height:"30%"}}>
-          <View className="flex-row justify-between pt-5" style={{width:"80%"}}>
+        <View
+          className="rounded-2xl  items-center mt-0 border"
+          style={{ borderColor: "#3E2D8F", height: "30%" }}
+        >
+          <View
+            className="flex-row justify-between pt-5"
+            style={{ width: "80%" }}
+          >
             <Text className="" style={{ color: "#ffffff" }}>
               Today
             </Text>
@@ -70,33 +85,60 @@ const HomeScreen = () => {
           <LinearGradient
             colors={["#8E78C8", "#492BA1"]}
             start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1}}
+            end={{ x: 1, y: 1 }}
             locations={[1, 1]}
             style={{
               width: "100%",
-              height: 1
+              height: 1,
             }}
             className="mt-4"
           />
-          <View className="flex-1 flex-row justify-between items-center" style={{width:"80%"}}>
-            <View className="flex-col justify-center items-center" style={{height:"100%"}}>
-              <Text className="text-white">39°C</Text>
-              <Image source={require("../../assets/images/partelyrain.png")} width={10} height={10}/>
+          <View
+            className="flex-1 flex-row justify-between items-center"
+            style={{ width: "80%" }}
+          >
+            <View
+              className="flex-col justify-center items-center"
+              style={{ height: "100%" }}
+            >
+              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Image
+                source={weatherImages[weather?.current?.condition?.text]}
+                className="w-14 h-14 my-2"
+              />
               <Text className="text-white mt-1">15.00</Text>
             </View>
-            <View className="flex-col justify-center items-center" style={{height:"100%"}}>
-              <Text className="text-white">39°C</Text>
-              <Image source={require("../../assets/images/partelyrain.png")} width={10} height={10}/>
+            <View
+              className="flex-col justify-center items-center"
+              style={{ height: "100%" }}
+            >
+              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Image
+                source={weatherImages[weather?.current?.condition?.text]}
+                className="w-14 h-14 my-2"
+              />
               <Text className="text-white mt-1">15.00</Text>
             </View>
-            <View className="flex-col justify-center items-center" style={{height:"100%"}}>
-              <Text className="text-white">39°C</Text>
-              <Image source={require("../../assets/images/partelyrain.png")} width={10} height={10}/>
+            <View
+              className="flex-col justify-center items-center"
+              style={{ height: "100%" }}
+            >
+              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Image
+                source={weatherImages[weather?.current?.condition?.text]}
+                className="w-14 h-14 my-2"
+              />
               <Text className="text-white mt-1">15.00</Text>
             </View>
-            <View className="flex-col justify-center items-center" style={{height:"100%"}}>
-              <Text className="text-white">39°C</Text>
-              <Image source={require("../../assets/images/partelyrain.png")} width={10} height={10}/>
+            <View
+              className="flex-col justify-center items-center"
+              style={{ height: "100%" }}
+            >
+              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Image
+                source={weatherImages[weather?.current?.condition?.text]}
+                className="w-14 h-14 my-2"
+              />
               <Text className="text-white mt-1">15.00</Text>
             </View>
           </View>
