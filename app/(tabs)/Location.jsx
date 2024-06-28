@@ -1,6 +1,7 @@
 import { Fontisto } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { debounce, set } from "lodash";
+import { useNavigation } from "expo-router";
+import { debounce } from "lodash";
 import React, { useCallback, useState } from "react";
 import {
   ScrollView,
@@ -11,11 +12,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { fetchLocationForcast, fetchWeatherForcast } from "../../api/Weather";
-import { useNavigation } from "expo-router";
 
 const Location = () => {
   const [location, setLocation] = useState([]);
   const navigation = useNavigation();
+
   const handleLocation = async (loc) => {
     setLocation([]);
     const result = await fetchWeatherForcast({
@@ -23,7 +24,6 @@ const Location = () => {
       days: "7",
     });
     if(result){
-      console.log(result);
       navigation.navigate("HomeScreen", {location: JSON.stringify(result)})
     }
   };

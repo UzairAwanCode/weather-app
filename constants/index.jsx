@@ -1,3 +1,4 @@
+import { createContext } from "react";
 
 export const apiKey = "56f97bb081804174a33105531241206";
 
@@ -19,4 +20,3 @@ export const weatherImages = {
   "Fog": require("../assets/images/images/moderaterain.png"),
   "other": require("../assets/images/images/moderaterain.png"),
 };
-

@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AirQuality from "../../components/details/AirQuality";
@@ -7,10 +7,11 @@ import WeeklyForcast from "../../components/details/WeeklyForcast";
 import Sunrise from "../../components/details/Sunrise";
 import { useLocalSearchParams } from "expo-router";
 import { fetchWeatherForcast } from "../../api/Weather";
+import { WeatherContext } from "../../contaxt/WeatherContaxt";
 
 const Details = () => {
-  const [weatherDetails, setWeatherDetails] = useState({});
-  const params = useLocalSearchParams();
+  const weatherDetails = useContext(WeatherContext)
+  const sevenDaysForcast = weatherDetails?.forecast?.forecastday
   const today = new Date();
 
   const formatDate = (date) => {
@@ -25,31 +26,6 @@ const Details = () => {
   };
 
   const todayDate = formatDate(today)
-
-  useEffect(() => {
-    if (params.locations) {
-      try {
-        const location = JSON.parse(params.location);
-        setWeatherDetails(location);
-      } catch (error) {
-        console.log("Error while calling details param.location: ", error);
-      }
-    } else {
-      getWeatherData();
-    }
-  }, [params.locations]);
-
-  const getWeatherData = async () => {
-    try {
-      const result = await fetchWeatherForcast({
-        cityName: "islamabad",
-        days: "7",
-      });
-      setWeatherDetails(result);
-    } catch (error) {
-      console.log("Error while getWeatherData in details: ", error);
-    }
-  };
 
   return (
     <LinearGradient
@@ -81,7 +57,10 @@ const Details = () => {
           </View>
 
           {/* 7 days forcast */}
-          <WeeklyForcast forecast={weatherDetails?.forecast?.forecastday} />
+          {
+            sevenDaysForcast ? <WeeklyForcast forecast={sevenDaysForcast} /> : null 
+          }
+          
 
           {/* Air Quality */}
           <AirQuality />

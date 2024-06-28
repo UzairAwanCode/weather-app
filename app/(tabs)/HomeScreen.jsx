@@ -1,37 +1,40 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { weatherImages } from "../../constants";
 import { fetchWeatherForcast } from "../../api/Weather";
+import { WeatherContext } from "../../contaxt/WeatherContaxt";
 
 const HomeScreen = () => {
-  const [weather, setWeather] = useState();
-  const params = useLocalSearchParams();
+  const weather = useContext(WeatherContext)
+  const {current} = weather
+  // const [weather, setWeather] = useState();
+  // const params = useLocalSearchParams();
 
-  useEffect(() => {
-    if (params.location) {
-      try {
-        const location = JSON.parse(params.location);
-        setWeather(location);
-      } catch (error) {
-        console.error("Error while Receving Data", error);
-      }
-    }
-    else{
-      getWeatherForcast()
-    }
-  }, [params.location]);
+  // useEffect(() => {
+  //   if (params.location) {
+  //     try {
+  //       const location = JSON.parse(params.location);
+  //       setWeather(location);
+  //     } catch (error) {
+  //       console.error("Error while Receving Data", error);
+  //     }
+  //   }
+  //   else{
+  //     getWeatherForcast()
+  //   }
+  // }, [params.location]);
 
-  const getWeatherForcast = async()=>{
-    const result = await fetchWeatherForcast({
-      cityName: "islamabad",
-      days: "7"
-    })
+  // const getWeatherForcast = async()=>{
+  //   const result = await fetchWeatherForcast({
+  //     cityName: "islamabad",
+  //     days: "7"
+  //   })
     
-    setWeather(result)
-  }
+  //   setWeather(result)
+  // }
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
