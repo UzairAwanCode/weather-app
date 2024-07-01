@@ -1,6 +1,7 @@
 import { createContext } from "react";
 
-export const apiKey = "56f97bb081804174a33105531241206";
+// export const apiKey = "56f97bb081804174a33105531241206";
+export const apiKey = "73009e1e307a44e698d110756240107";
 
 export const weatherImages = {
   "Partly cloudy": require("../assets/images/images/partlycloudy.png"),
@@ -19,4 +20,5 @@ export const weatherImages = {
   "Moderate or heavy rain with thunder": require("../assets/images/images/heavyrain.png"),
   "Fog": require("../assets/images/images/moderaterain.png"),
   "other": require("../assets/images/images/moderaterain.png"),
+  "night": require("../assets/images/images/moderaterain.png"),
 };

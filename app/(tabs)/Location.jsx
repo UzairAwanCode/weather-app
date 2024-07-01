@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { fetchLocationForcast, fetchWeatherForcast } from "../../api/Weather";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventRegister } from 'react-native-event-listeners'
 
 const Location = () => {
   const [location, setLocation] = useState([]);
@@ -19,14 +21,24 @@ const Location = () => {
 
   const handleLocation = async (loc) => {
     setLocation([]);
-    const result = await fetchWeatherForcast({
-      cityName: loc.name,
-      days: "7",
-    });
-    if(result){
-      navigation.navigate("HomeScreen", {location: JSON.stringify(result)})
+    if(loc.name){
+      getNewLocation(loc.name)
+      EventRegister.emit("locationChanged", loc.name)
+      navigation.navigate("HomeScreen")
     }
   };
+
+  const getNewLocation = async(loc)=>{
+    const checkAsyncStorageValue = await AsyncStorage.getItem("location")
+    
+    if(checkAsyncStorageValue){
+      await AsyncStorage.removeItem("location")
+      await AsyncStorage.setItem("location", loc)
+    }
+    else{
+      await AsyncStorage.setItem("location", loc)
+    }
+  }
 
   const handleSearch = (value) => {
     if (value.length > 2) {

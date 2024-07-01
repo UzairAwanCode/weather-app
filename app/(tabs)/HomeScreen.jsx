@@ -10,31 +10,7 @@ import { WeatherContext } from "../../contaxt/WeatherContaxt";
 const HomeScreen = () => {
   const weather = useContext(WeatherContext)
   const {current} = weather
-  // const [weather, setWeather] = useState();
-  // const params = useLocalSearchParams();
-
-  // useEffect(() => {
-  //   if (params.location) {
-  //     try {
-  //       const location = JSON.parse(params.location);
-  //       setWeather(location);
-  //     } catch (error) {
-  //       console.error("Error while Receving Data", error);
-  //     }
-  //   }
-  //   else{
-  //     getWeatherForcast()
-  //   }
-  // }, [params.location]);
-
-  // const getWeatherForcast = async()=>{
-  //   const result = await fetchWeatherForcast({
-  //     cityName: "islamabad",
-  //     days: "7"
-  //   })
-    
-  //   setWeather(result)
-  // }
+  
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
@@ -45,9 +21,9 @@ const HomeScreen = () => {
     >
       <SafeAreaView className="flex-1">
         <View className=" flex-2 items-center">
-          <Image source={weatherImages[weather?.current?.condition?.text]} className="w-36 h-36 mt-10 mb-5"/>
+          <Image source={weatherImages[current?.condition?.text]} className="w-36 h-36 mt-10 mb-5"/>
           <Text className="font-medium text-5xl" style={{ color: "#ffffff" }}>
-            {weather?.current?.temp_c}°
+            {current?.temp_c}°
           </Text>
           <Text className="font-normal text-base" style={{ color: "#ffffff" }}>
             Precipitations
@@ -57,13 +33,13 @@ const HomeScreen = () => {
               className="font-normal text-base mr-2"
               style={{ color: "#ffffff" }}
             >
-              Max: {weather?.current?.precip_mm}°
+              Max: {current?.precip_mm}°
             </Text>
             <Text
               className="font-normal text-base"
               style={{ color: "#ffffff" }}
             >
-              Min: {weather?.current?.precip_in}°
+              Min: {current?.precip_in}°
             </Text>
           </View>
           <Image
@@ -104,9 +80,9 @@ const HomeScreen = () => {
               className="flex-col justify-center items-center"
               style={{ height: "100%" }}
             >
-              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Text className="text-white">{current?.temp_c}°C</Text>
               <Image
-                source={weatherImages[weather?.current?.condition?.text]}
+                source={weatherImages[current?.condition?.text]}
                 className="w-14 h-14 my-2"
               />
               <Text className="text-white mt-1">15.00</Text>
@@ -115,9 +91,9 @@ const HomeScreen = () => {
               className="flex-col justify-center items-center"
               style={{ height: "100%" }}
             >
-              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Text className="text-white">{current?.temp_c}°C</Text>
               <Image
-                source={weatherImages[weather?.current?.condition?.text]}
+                source={weatherImages[current?.condition?.text]}
                 className="w-14 h-14 my-2"
               />
               <Text className="text-white mt-1">15.00</Text>
@@ -126,9 +102,9 @@ const HomeScreen = () => {
               className="flex-col justify-center items-center"
               style={{ height: "100%" }}
             >
-              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Text className="text-white">{current?.temp_c}°C</Text>
               <Image
-                source={weatherImages[weather?.current?.condition?.text]}
+                source={weatherImages[current?.condition?.text]}
                 className="w-14 h-14 my-2"
               />
               <Text className="text-white mt-1">15.00</Text>
@@ -137,9 +113,9 @@ const HomeScreen = () => {
               className="flex-col justify-center items-center"
               style={{ height: "100%" }}
             >
-              <Text className="text-white">{weather?.current?.temp_c}°C</Text>
+              <Text className="text-white">{current?.temp_c}°C</Text>
               <Image
-                source={weatherImages[weather?.current?.condition?.text]}
+                source={weatherImages[current?.condition?.text]}
                 className="w-14 h-14 my-2"
               />
               <Text className="text-white mt-1">15.00</Text>

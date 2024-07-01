@@ -1,38 +1,61 @@
-import { Tabs, useLocalSearchParams } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Tabs } from "expo-router";
 import React, { useEffect, useState } from "react";
 import TabBar from "../../components/bottomtab/TabBar";
+import {
+  getDefaultWeatherForcast,
+  getNewWeatherForcast,
+} from "../../constants/SendDataRequest";
 import { WeatherContext } from "../../contaxt/WeatherContaxt";
-import { getDefaultWeatherForcast, getDifferentWeatherForcast } from "../../constants/SendDataRequest";
+import { EventRegister } from "react-native-event-listeners";
 
 const _layout = () => {
-  const [weather, setWeather] = useState({})
-  const params = useLocalSearchParams();
+  const [weather, setWeather] = useState({});
+  const [location, setLocation] = useState();
 
-  useEffect(()=>{
-    if(params.location){
-      const location = JSON.parse(params.location)
-      console.log(location.name);
-      fetchNewLocationWeatherData(location.name)
+  const asyncStorageValue = async () => {
+    const value = await AsyncStorage.getItem("location");
+    setLocation(value);
+    // await AsyncStorage.removeItem("location");
+  };
+
+  useEffect(() => {
+    asyncStorageValue();
+
+    const listner = EventRegister.on("locationChanged", (newLocation) => {
+      setLocation(newLocation);
+    });
+
+    return () => {
+      EventRegister.removeListener(listner);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (location) {
+      fetchNewLocationWeatherData(location);
+    } else {
+      fetchDefaultWeatherData();
     }
-    else{
-      fetchDefaultWeatherData()
-    }
-  }, [params.location])
+  }, [location]);
 
-  const fetchNewLocationWeatherData = async(loc)=>{
-    const result = await fetchNewLocationWeatherData(loc);
-    setWeather(result)
-  }
+  const fetchNewLocationWeatherData = async (loc) => {
+    const result = await getNewWeatherForcast(loc);
+    setWeather(result);
+  };
 
-  const fetchDefaultWeatherData = async()=>{
+  const fetchDefaultWeatherData = async () => {
     const result = await getDefaultWeatherForcast();
-    setWeather(result)
-  }
+    setWeather(result);
+  };
 
   return (
     <WeatherContext.Provider value={weather}>
-      <Tabs tabBar={props=> <TabBar  {...props}/>} initialRouteName="HomeScreen">
-        <Tabs.Screen name="Location" options={{headerShown: false}} />
+      <Tabs
+        tabBar={(props) => <TabBar {...props} />}
+        initialRouteName="HomeScreen"
+      >
+        <Tabs.Screen name="Location" options={{ headerShown: false }} />
         <Tabs.Screen name="HomeScreen" options={{ headerShown: false }} />
         <Tabs.Screen name="Details" options={{ headerShown: false }} />
       </Tabs>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { fetchWeatherForcast } from "../api/Weather";
 
-export const getDifferentWeatherForcast = async (loc) => {
+export const getNewWeatherForcast = async (loc) => {
   const result = await fetchWeatherForcast({
     cityName: loc,
     days: "7",

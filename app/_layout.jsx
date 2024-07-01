@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 
 const _layout = () => {
   return (
