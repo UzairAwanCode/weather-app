@@ -1,10 +1,8 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useLocalSearchParams } from "expo-router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { weatherImages } from "../../constants";
-import { fetchWeatherForcast } from "../../api/Weather";
 import { WeatherContext } from "../../contaxt/WeatherContaxt";
 
 const HomeScreen = () => {

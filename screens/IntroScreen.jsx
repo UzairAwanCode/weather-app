@@ -1,45 +1,66 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "expo-router";
 import React from "react";
-import {
-  Dimensions,
-  Image,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-const { width, height } = Dimensions.get("window");
+import {
+  HorizontalScale,
+  ModerateScale,
+  VerticalScale,
+} from "../responsive/Metics";
 
 const IntroScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 1 }}
-      locations={[0.2,0.7]}
-      style={{ backgroundColor: "#362A84", flex: 1 }}
+      locations={[0.2, 0.7]}
+      style={{ backgroundColor: "#362A84", flex: 1, alignItems:'center' }}
     >
       <SafeAreaView className="justify-between items-center">
-        <View className="mb-20">
-          <Image source={require("../assets/images/frontpageimage.png")} />
+        <View style={{ marginBottom: VerticalScale(20) }}>
+          <Image
+            style={{ width: HorizontalScale(300), height: VerticalScale(300) }}
+            source={require("../assets/images/frontpageimage.png")}
+          />
         </View>
-        <Text className="text-6xl font-bold text-white mb-2">Weather</Text>
         <Text
-          className="text-6xl font-medium mb-20"
-          style={{ color: "#DDB130" }}
+          style={{
+            fontSize: ModerateScale(60),
+            marginBottom: VerticalScale(-10),
+          }}
+          className="font-bold text-white"
+        >
+          Weather
+        </Text>
+        <Text
+          className="font-medium"
+          style={{ color: "#DDB130", fontSize: ModerateScale(60) }}
         >
           ForeCast
         </Text>
-        <TouchableOpacity
-          className="rounded-full p-2 justify-center items-center"
-          style={{ width: "55%", backgroundColor: "#DDB130" }}
-          onPress={()=>navigation.navigate("(tabs)")}
-        >
-          <Text className="text-2xl font-medium text-black">Get Start</Text>
-        </TouchableOpacity>
       </SafeAreaView>
+      <TouchableOpacity
+        className="rounded-full justify-center items-center"
+        style={{
+          width: "55%",
+          backgroundColor: "#DDB130",
+          padding: ModerateScale(6),
+          position: "absolute",
+          bottom: 0,
+          marginBottom:VerticalScale(60)
+        }}
+        onPress={() => navigation.navigate("(tabs)")}
+      >
+        <Text
+          className="font-medium text-black"
+          style={{ fontSize: ModerateScale(24)}}
+        >
+          Get Start
+        </Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
