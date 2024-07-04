@@ -4,11 +4,12 @@ import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { weatherImages } from "../../constants";
 import { WeatherContext } from "../../contaxt/WeatherContaxt";
+import { HorizontalScale, ModerateScale, VerticalScale } from "../../responsive/Metics";
 
 const HomeScreen = () => {
-  const weather = useContext(WeatherContext)
-  const {current} = weather
-  
+  const weather = useContext(WeatherContext);
+  const { current } = weather;
+
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
@@ -19,36 +20,45 @@ const HomeScreen = () => {
     >
       <SafeAreaView className="flex-1">
         <View className=" flex-2 items-center">
-          <Image source={weatherImages[current?.condition?.text]} className="w-36 h-36 mt-10 mb-5"/>
-          <Text className="font-medium text-5xl" style={{ color: "#ffffff" }}>
+          <Image
+            style={{
+              width: HorizontalScale(100),
+              height: VerticalScale(100),
+              marginTop: VerticalScale(40),
+              marginBottom: VerticalScale(10),
+            }}
+            source={weatherImages[current?.condition?.text]}
+          />
+          <Text className="font-medium" style={{ fontSize: ModerateScale(48),color: "#ffffff" }}>
             {current?.temp_c}°
           </Text>
-          <Text className="font-normal text-base" style={{ color: "#ffffff" }}>
+          <Text className="font-normal" style={{ fontSize: ModerateScale(16),color: "#ffffff" }}>
             Precipitations
           </Text>
           <View className="flex-row">
             <Text
-              className="font-normal text-base mr-2"
-              style={{ color: "#ffffff" }}
+              className="font-normal mr-2"
+              style={{ fontSize: ModerateScale(16),color: "#ffffff" }}
             >
               Max: {current?.precip_mm}°
             </Text>
             <Text
-              className="font-normal text-base"
-              style={{ color: "#ffffff" }}
+              className="font-normal"
+              style={{ fontSize: ModerateScale(16),color: "#ffffff" }}
             >
               Min: {current?.precip_in}°
             </Text>
           </View>
           <Image
+            style={{width:HorizontalScale(50), height: VerticalScale(50)}}
             source={require("../../assets/images/house.png")}
             className="mr-4 mt-6"
           />
         </View>
 
         <View
-          className="rounded-2xl  items-center mt-0 border"
-          style={{ borderColor: "#3E2D8F", height: "30%" }}
+          className="rounded-2xl  items-center border"
+          style={{ borderColor: "#3E2D8F", height: "40%" }}
         >
           <View
             className="flex-row justify-between pt-5"
@@ -71,12 +81,12 @@ const HomeScreen = () => {
             className="mt-4"
           />
           <View
-            className="flex-1 flex-row justify-between items-center"
+            className="flex-row justify-between"
             style={{ width: "80%" }}
           >
             <View
               className="flex-col justify-center items-center"
-              style={{ height: "100%" }}
+              style={{ height: "100%", }}
             >
               <Text className="text-white">{current?.temp_c}°C</Text>
               <Image
