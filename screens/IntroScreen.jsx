@@ -8,9 +8,15 @@ import {
   ModerateScale,
   VerticalScale,
 } from "../responsive/Metics";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const IntroScreen = () => {
   const navigation = useNavigation();
+
+  const getStarted = async()=>{
+    await AsyncStorage.setItem("redirect", "true");
+    navigation.navigate("(tabs)")
+  }
   return (
     <LinearGradient
       colors={["#3E2D8F", "#9D52AC"]}
@@ -52,7 +58,7 @@ const IntroScreen = () => {
           bottom: 0,
           marginBottom:VerticalScale(60)
         }}
-        onPress={() => navigation.navigate("(tabs)")}
+        onPress={getStarted}
       >
         <Text
           className="font-medium text-black"

@@ -4,7 +4,7 @@ import { View, Text, Image } from "react-native";
 
 const Sunrise = ({sunrise, sunset, uvIndex}) => {
   return (
-    <View className="mt-8 items-center flex-row" style={{ width: "80%" }}>
+    <View className="mt-8 items-center flex-row mb-14" style={{ width: "90%" }}>
       {/* SunRise */}
       <View className="flex-1 mr-4">
         <LinearGradient

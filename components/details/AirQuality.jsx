@@ -7,7 +7,7 @@ import {
 
 const AirQuality = () => {
   return (
-    <View style={{ width: "82%", elevation: 2 }} className="mt-8">
+    <View style={{width: "82%", elevation: 2 }} className="mt-8">
       <LinearGradient
         colors={["#3E2D8F", "#9D52AC"]}
         start={{ x: 1, y: 0 }}
@@ -19,7 +19,7 @@ const AirQuality = () => {
           <Image source={require("../../assets/images/air.png")} />
           <Text className="text-white ml-3 text-sm">AIR QUALITY</Text>
         </View>
-        <Text className="text-white ml-3 text-2xl font-semibold ml-2">
+        <Text className="text-white text-2xl font-semibold ml-2">
           3-Low Health Risk
         </Text>
 

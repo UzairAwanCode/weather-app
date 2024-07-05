@@ -13,7 +13,7 @@ const WeeklyForcast = ({ forecast }) => {
       <View className="mb-2" style={{ width: "82%" }}>
         <Text className="text-white font-bold text-lg">7-Days Forecasts</Text>
       </View>
-
+      
       <View className="flex-row items-center" style={{ width: "100%" }}>
         <ChevronLeftIcon size="35" color={"white"} />
         <ScrollView

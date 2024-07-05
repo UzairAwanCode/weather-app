@@ -26,9 +26,11 @@ const _layout = () => {
       setLocation(newLocation);
     });
 
-    return () => {
-      EventRegister.removeListener(listner);
-    };
+    if (listner) {
+      return () => {
+        EventRegister.removeListener(listner);
+      };
+    }
   }, []);
 
   useEffect(() => {
